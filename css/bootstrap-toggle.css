@@ -7,8 +7,8 @@
  * ======================================================================== */
 
 
-.checkbox label .toggle,
-.checkbox-inline .toggle {
+.form-check-label .toggle,
+.form-check-inline .toggle {
 	margin-left: -20px;
 	margin-right: 5px;
 }

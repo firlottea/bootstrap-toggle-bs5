@@ -8,11 +8,9 @@ Visit http://www.bootstraptoggle.com for demos.
 ### Installation
 You can [download](https://github.com/minhur/bootstrap-toggle/archive/master.zip) the latest version of Bootstrap Toggle or use CDN to load the library.
 
-`Warning` If you are using Bootstrap v2.3.2, use `bootstrap2-toggle.min.js` and `bootstrap2-toggle.min.css` instead.
-
 ```html
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
 ### Bower Install
@@ -33,15 +31,15 @@ Simply add `data-toggle="toggle"` to convert checkboxes into toggles.
 Refer to Bootstrap Form Controls documentation to create stacked checkboxes. Simply add `data-toggle="toggle"` to convert checkboxes into toggles.
 
 ```html
-<div class="checkbox">
-  <label>
-    <input type="checkbox" data-toggle="toggle">
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" data-toggle="toggle" id="stackedCheck1">
+  <label class="form-check-label" for="stackedCheck1">
     Option one is enabled
   </label>
 </div>
-<div class="checkbox disabled">
-  <label>
-    <input type="checkbox" disabled data-toggle="toggle">
+<div class="form-check disabled">
+  <input class="form-check-input" type="checkbox" disabled data-toggle="toggle" id="stackedCheck2">
+  <label class="form-check-label" for="stackedCheck2">
     Option two is disabled
   </label>
 </div>
@@ -51,15 +49,18 @@ Refer to Bootstrap Form Controls documentation to create stacked checkboxes. Sim
 Refer to Bootstrap Form Controls documentation to create inline checkboxes. Simply add `data-toggle="toggle"` to a convert checkboxes into toggles.
 
 ```html
-<label class="checkbox-inline">
-  <input type="checkbox" checked data-toggle="toggle"> First
-</label>
-<label class="checkbox-inline">
-  <input type="checkbox" data-toggle="toggle"> Second
-</label>
-<label class="checkbox-inline">
-  <input type="checkbox" data-toggle="toggle"> Third
-</label>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" checked data-toggle="toggle" id="inlineCheck1">
+  <label class="form-check-label" for="inlineCheck1">First</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" data-toggle="toggle" id="inlineCheck2">
+  <label class="form-check-label" for="inlineCheck2">Second</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" data-toggle="toggle" id="inlineCheck3">
+  <label class="form-check-label" for="inlineCheck3">Third</label>
+</div>
 ```
 
 ## API
@@ -70,9 +71,9 @@ Initialize toggles with id `toggle-one` with a single line of JavaScript.
 ```html
 <input id="toggle-one" checked type="checkbox">
 <script>
-  $(function() {
-    $('#toggle-one').bootstrapToggle();
-  })
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#toggle-one').bootstrapToggle();
+  });
 </script>
 ```
 
@@ -83,12 +84,12 @@ Options can be passed via data attributes or JavaScript. For data attributes, ap
 <input type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
 <input type="checkbox" id="toggle-two">
 <script>
-  $(function() {
-    $('#toggle-two').bootstrapToggle({
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#toggle-two').bootstrapToggle({
       on: 'Enabled',
       off: 'Disabled'
     });
-  })
+  });
 </script>
 ```
 
@@ -112,13 +113,13 @@ Methods can be used to control toggles directly.
 
 Method|Example|Description
 ---|---|---
-initialize|$('#toggle-demo').bootstrapToggle()|Initializes the toggle plugin with options
-destroy|$('#toggle-demo').bootstrapToggle('destroy')|Destroys the toggle
-on|$('#toggle-demo').bootstrapToggle('on')|Sets the toggle to 'On' state
-off|$('#toggle-demo').bootstrapToggle('off')|Sets the toggle to 'Off' state
-toggle|$('#toggle-demo').bootstrapToggle('toggle')|Toggles the state of the toggle
-enable|$('#toggle-demo').bootstrapToggle('enable')|Enables the toggle
-disable|$('#toggle-demo').bootstrapToggle('disable')|Disables the toggle
+initialize|document.querySelector('#toggle-demo').bootstrapToggle()|Initializes the toggle plugin with options
+destroy|document.querySelector('#toggle-demo').bootstrapToggle('destroy')|Destroys the toggle
+on|document.querySelector('#toggle-demo').bootstrapToggle('on')|Sets the toggle to 'On' state
+off|document.querySelector('#toggle-demo').bootstrapToggle('off')|Sets the toggle to 'Off' state
+toggle|document.querySelector('#toggle-demo').bootstrapToggle('toggle')|Toggles the state of the toggle
+enable|document.querySelector('#toggle-demo').bootstrapToggle('enable')|Enables the toggle
+disable|document.querySelector('#toggle-demo').bootstrapToggle('disable')|Disables the toggle
 
 ## Events
 
@@ -131,11 +132,11 @@ You should listen to events from the `<input type="checkbox">` directly rather t
 <input id="toggle-event" type="checkbox" data-toggle="toggle">
 <div id="console-event"></div>
 <script>
-  $(function() {
-    $('#toggle-event').change(function() {
-      $('#console-event').html('Toggle: ' + $(this).prop('checked'))
-    })
-  })
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#toggle-event').addEventListener('change', function() {
+      document.querySelector('#console-event').innerHTML = 'Toggle: ' + this.checked;
+    });
+  });
 </script>
 ```
 
@@ -150,16 +151,18 @@ This also means that using the API or Input to trigger events will work both way
 <button class="btn btn-danger" onclick="toggleOffByInput()">Off by Input</button>
 <script>
   function toggleOn() {
-    $('#toggle-trigger').bootstrapToggle('on')
+    document.querySelector('#toggle-trigger').bootstrapToggle('on');
   }
   function toggleOff() {
-    $('#toggle-trigger').bootstrapToggle('off')  
+    document.querySelector('#toggle-trigger').bootstrapToggle('off');
   }
   function toggleOnByInput() {
-    $('#toggle-trigger').prop('checked', true).change()
+    document.querySelector('#toggle-trigger').checked = true;
+    document.querySelector('#toggle-trigger').dispatchEvent(new Event('change', { bubbles: true }));
   }
   function toggleOffByInput() {
-    $('#toggle-trigger').prop('checked', false).change()
+    document.querySelector('#toggle-trigger').checked = false;
+    document.querySelector('#toggle-trigger').dispatchEvent(new Event('change', { bubbles: true }));
   }
 </script>
 ```
@@ -173,3 +176,16 @@ A binding for knockout is available here: [aAXEe/knockout-bootstrap-toggle](http
 ## Demos
 
 Visit http://www.bootstraptoggle.com for demos.
+
+## Notes on Changes from Bootstrap 4 to 5
+
+Bootstrap 5 introduced several changes that may affect the usage of Bootstrap Toggle. Some of the key changes include:
+
+- Dropped support for Internet Explorer 10 and 11.
+- Removed jQuery dependency.
+- Updated form controls and utilities.
+- Replaced `.form-check` with `.form-switch` for toggle switches.
+- Updated grid system and breakpoints.
+- Improved documentation and examples.
+
+Please refer to the [Bootstrap 5 migration guide](https://getbootstrap.com/docs/5.1/migration/) for more details on the changes and how to update your code accordingly.
